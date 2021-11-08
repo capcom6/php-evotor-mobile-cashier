@@ -1,0 +1,21 @@
+{
+    "name": "softc/evotor-mobile-cashier",
+    "description": "Provides access to Evotor Mobile Cashier API",
+    "type": "library",
+    "license": "Apache",
+    "autoload": {
+        "psr-4": {
+            "SoftC\\Evotor\\MobileCashier\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aleksandr Soloshenko",
+            "email": "capcom@soft-c.ru"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "guzzlehttp/guzzle": "^7.4"
+    }
+}
