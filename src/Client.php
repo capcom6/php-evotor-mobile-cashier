@@ -21,9 +21,6 @@ class Client {
         $this->client = new \GuzzleHttp\Client([
             // Base URI is used with relative requests
             'base_uri' => self::BASE_URI,
-            \GuzzleHttp\RequestOptions::HEADERS  => [
-                'Content-Type' => 'application/json'
-            ],
             \GuzzleHttp\RequestOptions::SYNCHRONOUS => true,
             \GuzzleHttp\RequestOptions::TIMEOUT => 30
         ]);
@@ -31,6 +28,10 @@ class Client {
     
     public function create(Data\Receipt $receipt) {
         $response = $this->client->post('/api/v1/receipt/pre/create', [
+            \GuzzleHttp\RequestOptions::HEADERS  => [
+                'userId' => $this->userId,
+                'Content-Type' => 'application/json'
+            ],
             \GuzzleHttp\RequestOptions::BODY => json_encode($receipt)
         ]);
         
