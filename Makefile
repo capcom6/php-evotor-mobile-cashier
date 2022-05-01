@@ -15,4 +15,4 @@
 .PHONY: tests
 tests:
 	vendor/bin/phpstan analyze --level 9 src/ tests/ \
-		&& vendor/bin/phpunit tests/
+		&& vendor/bin/phpunit --do-not-cache-result tests/
