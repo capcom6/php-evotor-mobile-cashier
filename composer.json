@@ -8,14 +8,37 @@
             "SoftC\\Evotor\\MobileCashier\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "SoftC\\Evotor\\MobileCashier\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Aleksandr Soloshenko",
             "email": "capcom@soft-c.ru"
         }
     ],
+    "archive": {
+        "exclude": [
+            "tests/",
+            "nbproject/"
+        ]
+    },
     "require": {
-        "php": "^7.2",
-        "guzzlehttp/guzzle": "^7.4"
+        "php": ">=7.4",
+        "psr/http-message": "^1.0",
+        "psr/http-client-implementation": "^1.0",
+        "php-http/httplug": "^2.0",
+        "php-http/message-factory": "^1.0",
+        "php-http/discovery": "^1.0",
+        "mpetrovich/dash": "^3.1"
+    },
+    "require-dev": {
+        "php-http/mock-client": "^1.5",
+        "php-http/message": "^1.0",
+        "guzzlehttp/psr7": "^2.2",
+        "phpstan/phpstan": "^1.5",
+        "phpunit/phpunit": "^9.5"
     }
 }
