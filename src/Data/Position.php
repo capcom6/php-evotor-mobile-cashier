@@ -7,31 +7,33 @@ namespace SoftC\Evotor\MobileCashier\Data;
  *
  * @author capcom
  */
-class Position {
-    public $alcohol_by_volume;
-    public $alcohol_product_kind_code;
-    public $commodity_id;
-    public $mark;
-    public $tare_volume;
-    public $tax;
-    public $type;
-    
-    
-    public $measureName;
-    public $name;
-    public $position_uuid;
-    public $precision;
-    public $price;
-    public $quantity;
+class Position
+{
+    public ?float $alcohol_by_volume;
+    public ?int $alcohol_product_kind_code;
+    public ?string $commodity_id;
+    public ?string $mark;
+    public ?float $tare_volume;
+    public ?string $tax;
+    public string $type;
+
+
+    public string $measureName;
+    public string $name;
+    public string $position_uuid;
+    public int $precision;
+    public float $price;
+    public float $quantity;
 
 
     public function __construct(
-            string $uuid, 
-            string $name, 
-            string $measureName, 
-            int $precision,
-            string $price,
-            string $quantity) {
+        string $uuid,
+        string $name,
+        string $measureName,
+        int $precision,
+        float $price,
+        float $quantity)
+    {
         $this->position_uuid = $uuid;
         $this->name = $name;
         $this->measureName = $measureName;
