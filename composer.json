@@ -22,7 +22,8 @@
     "archive": {
         "exclude": [
             "tests/",
-            "nbproject/"
+            "nbproject/",
+            ".github/"
         ]
     },
     "require": {
