@@ -10,8 +10,8 @@ use SoftC\Evotor\MobileCashier\Data\Position;
  *
  * @author capcom
  */
-class Receipt
-{
+class Receipt {
+    public string $receipt_uuid;
     public ?string $cashier_uuid;
     public ?string $client_email;
     public ?string $client_phone;
@@ -20,11 +20,10 @@ class Receipt
      * Дополнительные поля для отображения
      * @var array<string, string>
      */
-    public array $extra;
+    public ?array $extra;
 
-    public string $payment_type;
-    public string $receipt_uuid;
-    public bool $should_print_receipt;
+    public ?string $payment_type;
+    public ?bool $should_print_receipt;
     /**
      * Список позиций заказа
      * @var Position[]
@@ -37,8 +36,7 @@ class Receipt
      * @param Position[] $positions список позиций
      * @param bool $should_print_receipt необходимость печати бумажной копии
      */
-    public function __construct(string $uuid, array $positions, bool $should_print_receipt = true)
-    {
+    public function __construct(string $uuid, array $positions, bool $should_print_receipt = true) {
         $this->receipt_uuid = $uuid;
         $this->positions = $positions;
         $this->should_print_receipt = $should_print_receipt;

@@ -1,0 +1,37 @@
+@baseUrl=https://mobilecashier.ru/api
+@login={{$dotenv LOGIN}}
+@password={{$dotenv PASSWORD}}
+@token={{$dotenv TOKEN}}
+
+###
+POST {{baseUrl}}/v2/authorize?login={{login}}&password={{password}} HTTP/1.1
+Accept: application/json
+
+###
+POST {{baseUrl}}/v3/asc/create/01-000000000722610 HTTP/1.1
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+    "receipt_uuid": "123",
+    "client_email": "test@example.com",
+    "positions": [
+        {
+            "position_uuid": "{{$guid}}",
+            "price": "{{$randomInt 0 999}}.{{$randomInt 0 9}}{{$randomInt 0 9}}",
+            "name": "Товар №{{$randomInt 1 999}}",
+            "measureName": "шт",
+            "quantity": 1,
+            "type": "NORNAL"
+        }
+    ],
+    "extra": {
+        "Номер заказа": "00000002",
+        "Идентификатор": "464c8db8-4680-4c5a-9155-771184fc230b"
+    }
+
+}
+
+###
+GET {{baseUrl}}/v3/asc/get?userId=01-000000000722610 HTTP/1.1
+Authorization: {{token}}

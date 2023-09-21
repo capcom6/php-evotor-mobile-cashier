@@ -5,16 +5,14 @@ namespace SoftC\Evotor\MobileCashier\Tests\Data;
 use PHPUnit\Framework\TestCase;
 use SoftC\Evotor\MobileCashier\Data\Position;
 
-final class PositionTest extends TestCase
-{
-    public function testConstructor(): void
-    {
+final class PositionTest extends TestCase {
+    public function testConstructor(): void {
         $uuid = 'uuid';
         $name = 'name';
         $measureName = 'кг';
         $precision = 3;
-        $price = 123.45;
-        $quantity = 1.234;
+        $price = '123.45';
+        $quantity = '1.234';
 
         $position = new Position($uuid, $name, $measureName, $precision, $price, $quantity);
 

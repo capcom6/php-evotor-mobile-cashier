@@ -6,10 +6,8 @@ use PHPUnit\Framework\TestCase;
 use SoftC\Evotor\MobileCashier\Data\Receipt;
 use SoftC\Evotor\MobileCashier\Data\Position;
 
-final class ReceiptTest extends TestCase
-{
-    public function testConstructorWithDefaults(): void
-    {
+final class ReceiptTest extends TestCase {
+    public function testConstructorWithDefaults(): void {
         $uuid = 'uuid';
         $positions = [
 
@@ -22,11 +20,10 @@ final class ReceiptTest extends TestCase
         $this->assertCount(0, $receipt->positions);
     }
 
-    public function testConstructor(): void
-    {
+    public function testConstructor(): void {
         $uuid = 'uuid';
         $positions = [
-            new Position('uuid', 'name', 'шт', 0, 123.45, 1),
+            new Position('uuid', 'name', 'шт', 0, '123.45', '1'),
         ];
         $should_print_receipt = false;
 
