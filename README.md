@@ -19,10 +19,13 @@ Initialize and create receipt:
 
 require 'vendor/autoload.php';
 
-$client = new SoftC\Evotor\MobileCashier\Client(<UserId>);
+use SoftC\Evotor\MobileCashier\Client;
+use SoftC\Evotor\MobileCashier\Data\Receipt;
+
+$client = new Client(<UserId>);
 
 $positions = [];    // instances of SoftC\Evotor\MobileCashier\Data\Position
-$receipt = new SoftC\Evotor\MobileCashier\Data\Receipt('4e34ac31-ae28-4f52-be00-e6af9383343a', positions);
+$receipt = new Receipt('4e34ac31-ae28-4f52-be00-e6af9383343a', positions);
 
 $response = $client->create($receipt);
 var_dump($response);

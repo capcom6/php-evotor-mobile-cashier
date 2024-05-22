@@ -7,8 +7,7 @@ namespace SoftC\Evotor\MobileCashier\Data;
  *
  * @author capcom
  */
-class Position
-{
+class Position {
     public ?float $alcohol_by_volume;
     public ?int $alcohol_product_kind_code;
     public ?string $commodity_id;
@@ -22,8 +21,8 @@ class Position
     public string $name;
     public string $position_uuid;
     public int $precision;
-    public float $price;
-    public float $quantity;
+    public string $price;
+    public string $quantity;
 
 
     public function __construct(
@@ -31,9 +30,9 @@ class Position
         string $name,
         string $measureName,
         int $precision,
-        float $price,
-        float $quantity)
-    {
+        string $price,
+        string $quantity
+    ) {
         $this->position_uuid = $uuid;
         $this->name = $name;
         $this->measureName = $measureName;
