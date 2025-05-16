@@ -5,9 +5,7 @@ namespace SoftC\Evotor\MobileCashier;
 use Http\Client\Exception\HttpException;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Message\MessageFactory;
 use InvalidArgumentException;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
@@ -21,41 +19,37 @@ use SoftC\Evotor\MobileCashier\Data\Receipt;
  * @author capcom
  */
 class Client {
-    const BASE_URL = 'https://mobilecashier.ru/api';
+    const BASE_URL = 'https://mobcashier-external.evotor.ru/api/v1/external/orders';
 
-    protected string $login;
-    protected string $password;
+    protected string $clientId;
+    protected string $apiKey;
     protected HttpClient $client;
     protected RequestFactoryInterface $requestFactory;
     protected StreamFactoryInterface $streamFactory;
 
-    protected ?string $token = null;
 
-
-    public function __construct(string $login, string $password, ?HttpClient $client = null) {
-        $this->login = $login;
-        $this->password = $password;
+    public function __construct(string $clientId, string $apiKey, ?HttpClient $client = null) {
+        $this->clientId = $clientId;
+        $this->apiKey = $apiKey;
         $this->client = $client ?? HttpClientDiscovery::find();
         $this->requestFactory = Psr17FactoryDiscovery::findRequestFactory();
         $this->streamFactory = Psr17FactoryDiscovery::findStreamFactory();
     }
 
-    public function Login(?string $login = null, ?string $password = null): void {
-        $uri = '/v2/authorize?' . http_build_query([
-            'login' => $login ?? $this->login,
-            'password' => $password ?? $this->password,
-        ]);
-
-        $request = $this->makeRequest('GET', $uri);
-        $response = $this->sendRequest($request);
-
-        $this->token = $response->getBody()->getContents();
+    public function Login(?string $clientId = null, ?string $apiKey = null): void {
+        $this->clientId = $clientId ?? $this->clientId;
+        $this->apiKey = $apiKey ?? $this->apiKey;
     }
 
     public function Create(string $userId, Receipt $receipt): void {
-        $uri = '/v3/asc/create/' . $userId;
+        $uri = '/create/' . urlencode($userId);
 
-        $request = $this->makeRequest('POST', $uri, [], $receipt);
+        $request = $this->makeRequest(
+            'POST',
+            $uri,
+            [],
+            $receipt
+        );
         $response = $this->sendRequest($request);
 
         if ($response->getStatusCode() != 200) {
@@ -78,9 +72,9 @@ class Client {
             static::BASE_URL . $uri,
         );
 
-        if (isset($this->token)) {
-            $request = $request->withHeader('Authorization', $this->token);
-        }
+        $request = $request
+            ->withHeader('X-Client-Id', $this->clientId)
+            ->withHeader('X-Api-Key', $this->apiKey);
         if ($payload !== null) {
             $request = $request
                 ->withHeader('Content-Type', 'application/json')

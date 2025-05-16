@@ -1,37 +1,117 @@
-@baseUrl=https://mobilecashier.ru/api
-@login={{$dotenv LOGIN}}
-@password={{$dotenv PASSWORD}}
-@token={{$dotenv TOKEN}}
+@baseUrl=https://mobcashier-external.evotor.ru/api/v1/external/orders
+@clientId={{$dotenv CLIENT_ID}}
+@apiKey={{$dotenv API_KEY}}
+
+@userId={{$dotenv USER_ID}}
 
 ###
-POST {{baseUrl}}/v2/authorize?login={{login}}&password={{password}} HTTP/1.1
-Accept: application/json
+# {
+#   "receipt_uuid": string (uuid64),
+#   "positions": [
+#     {
+#       "position_uuid": string,
+#       *"price": BigDecimal,
+#       *"name": string,
+#       *"measureName": string,
+#       *"quantity": BigDecimal,
+#       *"tax": enum, (NO_VAT – Без НДС; VAT_0 – Основная ставка НДС 0%; VAT_10 –Основная ставка НДС 10%; VAT_10_110 – Расчётная ставка НДС 10%; VAT_18 – Основная ставка НДС 20%; VAT_18_118 – Расчётная ставка НДС 20%; VAT_5 – Основная ставка НДС 5%, VAT_5_105 – Расчётная ставка НДС 5%, VAT_7 – Основная ставка НДС 7%, VAT_7_107 - Расчётная ставка 7%)
+#       "commodity_id": string (uuid64),
+#       "mark": string,
+#       *"type": enum (NORMAL – Обычный;
+# WATER_MARKED – Бутилированная питьевая вода;
+# DAIRY_MARKED — Молоко и молочная продукция;
+# JUICE_MARKED — Соки и безалкогольные напитки;
+# SHOES_MARKED – Маркированная обувь;
+# MEDICINE_MARKED – Маркированные лекарства;
+# WHEELCHAIRS_MARKED — Кресла-коляски;
+# SERVICE – Услуга;
+# PERFUME_MARKED – Маркированные духи;
+# PHOTOS_MARKED – Маркированная фотоаппаратура;
+# MEDICAL_DEVICES_MARKED – Маркированные медицинские изделия;
+# TYRES_MARKED – Маркированные шины;
+# LIGHT_INDUSTRY_MARKED – Маркированная продукция легкой промышленности;
+# DIETARY_SUPPLEMENTS_MARKED — БАДы (биоактивные добавки);
+# ANTISEPTIC_MARKED — Антисептики),
+#       "settlement_method_type": enum, (FULL – Полная оплата;
+# ADVANCE_PAYMENT – Аванс)
+#       "priceWithDiscount": BigDecimal,
+#       "code": string,
+#       "is_excisable": boolean,
+#       "sectoral_item_props": [
+#         {
+#           "federal_id": string,
+#           "date": string,
+#           "number": string,
+#           "value": string
+#         }
+#       ]
+#     }
+#   ],
+#   *"client_email": string,
+#   *"client_phone": string,
+#   "cashier_uuid": string,
+#   "should_print_receipt": boolean,
+#   "extra": {
+#     "additionalProp1": {string},
+#     "additionalProp2": {string},
+#     "additionalProp3": {string}
+#   },
+#   "purchaser": {
+#     *"name": string,
+#     "document_number": string,  (обязателен для типа NATURAL_PERSON, либо вместо него указывается "inn_number" 12 цифр)
+#     "type": enum, (NATURAL_PERSON — Физическое лицо;
+# ENTREPRENEUR — Индивидуальный предприниматель;
+# LEGAL_ENTITY — Юридическое лицо)
+#     "birth_date": string,  (обязателен для типа NATURAL_PERSON)
+#     "document_type": enum, (обязателен для типа NATURAL_PERSON) ( PASSPORT_RF — Паспорт гражданина РФ.
+# PASSPORT_DIPLOMATIC — Паспорт гражданина РФ, дипломатический паспорт, служебный паспорт,удостоверяющие личность гражданина Российской Федерации за пределами РФ.
+# TEMP_IDENTIFICATION — Временное удостоверение личности гражданина Российской Федерации, выдаваемое на период оформления паспорта гражданина РФ.
+# BIRTH_CERTIFICATE — Свидетельство о рождении гражданина РФ (для граждан Российской Федерации в возрасте до 14 лет).
+# OTHER_IDENTITY_DOC_RF — Иные документы, признаваемые документами, удостоверяющими личность гражданина РФ в соответствии с законодательством РФ.
+# PASSPORT_FOREIGN_CITIZEN — Паспорт иностранного гражданина.
+# OTHER_DOC_FOREIGN_CITIZEN_RECOGNIZED_RF — Иные документы, признаваемые документами, удостоверяющими личность иностранного гражданина в соответствии с законодательством РФ и международным договором РФ.
+# DOC_BY_FOREIGN_STATE_TO_STATELESS_PERSON — Документ, выданный иностранным государством и признаваемый в соответствии с международным договором РФ в качестве документа, удостоверяющего личность лица без гражданства.
+# RESIDENT_CARD — Вид на жительство (для лиц без гражданства).
+# TEMP_RESIDENCE_PERMIT — Разрешение на временное проживание (для лиц без гражданства).
+# APP_REVIEW_CERTIFICATE_RECOGNITION_REFUGEE_PERSON_RF — Свидетельство о рассмотрении ходатайства о признании лица без гражданства беженцем на территории РФ по существу.
+# REFUGEE_IDENTIFICATION — Удостоверение беженца.
+# OTHER_IDENTITY_DOC_STATELESS_PERSONS — Иные документы, признаваемые документами, удостоверяющими личность лиц без гражданства в соответствии с законодательством РФ и международным договором РФ.
+# DOC_FOR_PERIOD_OF_CONSIDERATION_CITIZENSHIP_RF — Документ, удостоверяющий личность лица, не имеющего действительного документа, удостоверяющего личность, на период рассмотрения заявления о признании гражданином РФ или о приеме в гражданство РФ.)
+#     "inn_number": string (обязателен для типов ENTREPRENEUR (12 цифр) и LEGAL_ENTITY (10 цифр)
+#   },
+#   "mdlp": string,
+#   "receiptDiscount": BigDecimal,
+#   "note": string,
+#   "order_number": string,
+  
+# }
 
 ###
-POST {{baseUrl}}/v3/asc/create/01-000000000722610 HTTP/1.1
-Authorization: {{token}}
+POST {{baseUrl}}/create/{{userId}} HTTP/1.1
+X-Client-Id: {{clientId}}
+X-Api-Key: {{apiKey}}
 Content-Type: application/json
 
 {
-    "receipt_uuid": "123",
-    "client_email": "test@example.com",
+    "receipt_uuid": "{{$guid}}",
     "positions": [
         {
             "position_uuid": "{{$guid}}",
-            "price": "{{$randomInt 0 999}}.{{$randomInt 0 9}}{{$randomInt 0 9}}",
-            "name": "Товар №{{$randomInt 1 999}}",
+            "price": "123.45",
+            "name": "Наименование товара",
             "measureName": "шт",
-            "quantity": 1,
-            "type": "NORNAL"
+            "quantity": "6",
+            "tax": "NO_VAT",
+            "type": "NORMAL"
         }
     ],
-    "extra": {
-        "Номер заказа": "00000002",
-        "Идентификатор": "464c8db8-4680-4c5a-9155-771184fc230b"
-    }
-
+    "client_email": "capcom@soft-c.ru",
+    "order_code": "789",
+    "operation_type": "SELL",
+    "total_sum": "123.45"
 }
 
 ###
-GET {{baseUrl}}/v3/asc/get?userId=01-000000000722610 HTTP/1.1
-Authorization: {{token}}
+DELETE {{baseUrl}}/delete/{{userId}}?receipt_uuid=123
+X-Client-Id: {{clientId}}
+X-Api-Key: {{apiKey}}
